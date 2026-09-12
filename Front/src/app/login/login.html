@@ -1,0 +1,46 @@
+<main class="login-page">
+	<section class="login-panel" aria-labelledby="login-title">
+		<div class="login-heading">
+			<p class="eyebrow">Welcome back</p>
+			<h1 id="login-title">Sign in to your account</h1>
+			<p class="intro">Enter your details to continue.</p>
+		</div>
+
+		<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+			<div class="field-group">
+				<label for="email">Email address</label>
+				<input
+                    formControlName="email"
+					id="email"
+					type="email"
+					autocomplete="email"
+					placeholder="you@example.com"
+					required
+				/>
+			</div>
+
+			<div class="field-group">
+				<div class="field-label-row">
+					<label for="password">Password</label>
+					<a href="/forgot-password">Forgot password?</a>
+				</div>
+				<input
+					formControlName="password"
+					id="password"
+					type="password"
+					autocomplete="current-password"
+					placeholder="Enter your password"
+					required
+				/>
+			</div>
+
+			<label class="remember-option">
+				<input formControlName="rememberMe" type="checkbox" name="remember" />
+				<span>Remember me</span>
+			</label>
+
+			<button type="submit" >Log in</button>
+		</form>
+	</section>
+</main>
+

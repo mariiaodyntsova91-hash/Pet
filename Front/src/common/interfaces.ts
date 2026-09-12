@@ -1,0 +1,9 @@
+export interface DataResponse {
+  message: string;
+}
+
+export type LoginInfo = {
+  email: string;
+  password: string;
+  rememberMe?: boolean;
+}
