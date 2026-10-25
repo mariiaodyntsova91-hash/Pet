@@ -1,23 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Service } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { LOGIN_ENDPOINT } from '../../common/apis.constants';
+import { LoginRequest, LoginResponse } from '../../common/interfaces';
 
-@Service()
+@Injectable({ providedIn: 'root' })
 export class LoginService {
-    http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
 
-  login({ email, password, rememberMe }: { email: string; password: string; rememberMe?: boolean }): void {
-    this.http.post(LOGIN_ENDPOINT, { email, password, rememberMe }).subscribe(
-      (response) => {
-        console.log('Login successful:', response);
-        // Handle successful login, e.g., store token, redirect, etc.
-      },
-      (error) => {
-        console.error('Login failed:', error);
-        // Handle login error, e.g., show error message to user
-      }
-    );
+  // Сервіс лише виконує HTTP-запит; стан запиту обробляє LoginStore.
+  login(credentials: LoginRequest): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(LOGIN_ENDPOINT, credentials);
   }
-
-
 }

@@ -4,8 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:api": "npm --prefix ../Back run start:dev",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "watch": "ng serve --configuration development",
+    "watch:build": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:Pet": "node dist/Pet/server/server.mjs"
   },
@@ -22,6 +24,7 @@
     "@angular/platform-server": "^22.1.0",
     "@angular/router": "^22.1.0",
     "@angular/ssr": "^22.1.8",
+    "@ngrx/signals": "^22.0.1",
     "express": "^5.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"

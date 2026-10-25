@@ -12,6 +12,18 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
+## NestJS API
+
+The NestJS backend and local PostgreSQL setup are documented in [`../Back`](../Back/README.md). Complete those setup steps in a second terminal, then start Angular here with:
+
+```bash
+npm start
+```
+
+Angular sends API requests to `http://localhost:3000/api`. The API health check is available at `http://localhost:3000/api/health`.
+
+`npm run start:api` starts the backend from this folder. `npm run watch` serves Angular with live reload; `npm run watch:build` watches for changes and rebuilds without starting the dev server. The login state uses NgRx SignalStore (`@ngrx/signals`).
+
 ## Code scaffolding
 
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:

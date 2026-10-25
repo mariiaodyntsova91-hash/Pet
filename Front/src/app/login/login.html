@@ -6,17 +6,22 @@
 			<p class="intro">Enter your details to continue.</p>
 		</div>
 
-		<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+		<!-- FormRoot керує submit, а formField синхронізує поля з моделлю-сигналом. -->
+		<form [formRoot]="loginForm">
 			<div class="field-group">
 				<label for="email">Email address</label>
 				<input
-                    formControlName="email"
+					[formField]="loginForm.email"
 					id="email"
 					type="email"
 					autocomplete="email"
 					placeholder="you@example.com"
-					required
 				/>
+				@if (loginForm.email().touched() && loginForm.email().invalid()) {
+					@for (error of loginForm.email().errors(); track error.kind) {
+						<p class="login-error" role="alert">{{ error.message }}</p>
+					}
+				}
 			</div>
 
 			<div class="field-group">
@@ -25,21 +30,32 @@
 					<a href="/forgot-password">Forgot password?</a>
 				</div>
 				<input
-					formControlName="password"
+					[formField]="loginForm.password"
 					id="password"
 					type="password"
 					autocomplete="current-password"
 					placeholder="Enter your password"
-					required
 				/>
+				@if (loginForm.password().touched() && loginForm.password().invalid()) {
+					@for (error of loginForm.password().errors(); track error.kind) {
+						<p class="login-error" role="alert">{{ error.message }}</p>
+					}
+				}
 			</div>
 
 			<label class="remember-option">
-				<input formControlName="rememberMe" type="checkbox" name="remember" />
+				<input [formField]="loginForm.rememberMe" type="checkbox" />
 				<span>Remember me</span>
 			</label>
 
-			<button type="submit" >Log in</button>
+			<!-- Помилка HTTP приходить зі стану SignalStore. -->
+			@if (loginStore.error(); as error) {
+				<p class="login-error" role="alert">{{ error }}</p>
+			}
+
+			<button type="submit" [disabled]="loginStore.isLoading()">
+				{{ loginStore.isLoading() ? 'Signing in…' : 'Log in' }}
+			</button>
 		</form>
 	</section>
 </main>
